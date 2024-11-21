@@ -1,22 +1,25 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 
 namespace WilGame
 {
 	
-	public class AvatarsSO : MonoBehaviour
+	[CreateAssetMenu(menuName = "AvatarsSO", fileName = "Scriptable Objects/Avatars")]
+	public class AvatarsSO : ScriptableObject
 	{
+		[SerializeField] private List<Avatar> avatars;
 		
-		
-		private void OnEnable()
+		public int Count => avatars.Count;
+		public Avatar GetAvatar(int index) => avatars[index];
+
+		public void ResetAvatarUsage()
 		{
-			
+			foreach (var avatar in avatars)
+			{
+				avatar.IsUsed = false;
+			}
 		}
-		private void OnDisable()
-		{
-			
-		}
-		
-		
 	}
 }
