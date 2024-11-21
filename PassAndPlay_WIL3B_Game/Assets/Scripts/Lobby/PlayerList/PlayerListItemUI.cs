@@ -36,6 +36,7 @@ namespace WilGame
 		private void RemovePlayer()
 		{
 			EventManager.OnRemovePlayer.Invoke(_playerId);
+			Destroy(gameObject);
 		}
 	}
 }

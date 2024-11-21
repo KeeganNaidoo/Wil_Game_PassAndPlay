@@ -25,6 +25,6 @@ public static class EventManager
 
     public static Event<int> OnRemovePlayer { get; } = new(); // int: player id
     public static Event OnAddPlayer { get; } = new();
-    public static Event<PlayerData> OnPlayerCreated { get; } = new();
+    public static Event<PlayerData> OnCreatePlayer { get; } = new();
     public static Event<int> OnAvatarSelected { get; } = new(); // int: avatar index
 }
