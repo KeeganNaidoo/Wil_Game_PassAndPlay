@@ -15,4 +15,12 @@ public static class EventManager
     //public static Event<bool> onGamePaused { get; } = new (); // bool: true if game is paused
     public static Event OnFinishTurn { get; } = new ();
     public static Event OnStartTurn { get; } = new ();
+    public static Event OnAllPlayersTurnFinished { get; } = new ();
+    
+    public static Event OnFinishRound { get; } = new ();
+    public static Event<int> OnStartRound { get; } = new (); // int: Round number
+    public static Event OnEndMatch { get; } = new ();
+    public static Event OnStartMatch { get; } = new ();
+    
+    
 }
