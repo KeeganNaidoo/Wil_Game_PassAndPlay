@@ -11,7 +11,9 @@ namespace WilGame
 	public class LobbyPlayerList : MonoBehaviour
 	{
 		[SerializeField] private int maxPlayers = 8;
-		private List<PlayerData> _players = new();
+		[SerializeField] private PlayerListItemUI playerListItemPrefab;
+		private List<PlayerListItemUI> playerListUI = new();
+		[SerializeField] private AddPlayerUI addPlayerUI;
 
 		private void Awake()
 		{

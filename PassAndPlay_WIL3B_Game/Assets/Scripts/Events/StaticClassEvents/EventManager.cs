@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WilGame.Players;
 
 /// <summary>
 /// Used for storing and accessing events all in one place.
@@ -21,6 +22,9 @@ public static class EventManager
     public static Event<int> OnStartRound { get; } = new (); // int: Round number
     public static Event OnEndMatch { get; } = new ();
     public static Event OnStartMatch { get; } = new ();
-    
-    
+
+    public static Event<int> OnRemovePlayer { get; } = new(); // int: player id
+    public static Event OnAddPlayer { get; } = new();
+    public static Event<PlayerData> OnPlayerCreated { get; } = new();
+    public static Event<int> OnAvatarSelected { get; } = new(); // int: avatar index
 }

@@ -1,22 +1,12 @@
 using UnityEngine;
 
-
 namespace WilGame
 {
 	
-	public class Avatar : MonoBehaviour
+	public class Avatar
 	{
-		
-		
-		private void OnEnable()
-		{
-			
-		}
-		private void OnDisable()
-		{
-			
-		}
-		
-		
+		public int Index;
+		public Sprite Sprite;
+		[HideInInspector] public bool IsUsed;
 	}
 }
