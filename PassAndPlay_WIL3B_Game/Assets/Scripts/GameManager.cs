@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityUtils;
 using Eflatun.SceneReference;
 using WilGame.Players;
+using WilGame.Rounds;
 
 namespace WilGame
 {
@@ -21,21 +22,49 @@ namespace WilGame
 
         private void OnEnable()
         {
-            EventManager.OnEndMatch.Subscribe(StartEndGameScene);
+            EventManager.OnFinishRound.Subscribe(HandleFinishRound);
+            EventManager.OnEndMatch.Subscribe(HandleEndMatch);
+            EventManager.OnStartMatch.Subscribe(OnStartGame);
         }
 
         private void OnDisable()
         {
-            EventManager.OnEndMatch.Unsubscribe(StartEndGameScene);
+            EventManager.OnFinishRound.Unsubscribe(HandleFinishRound);
+            EventManager.OnEndMatch.Unsubscribe(HandleEndMatch);
+            EventManager.OnStartMatch.Unsubscribe(OnStartGame);
         }
 
-        private void OnStartMatch()
+        private void OnStartGame()
         {
-            
+            EventManager.OnStartRound.Invoke(1); // Start first round
+            SceneManager.LoadScene(gameLoopScenes[0].Name);
         }
-        private void StartEndGameScene()
+        
+        private void HandleFinishRound()
         {
-            SceneManager.LoadScene(lobbyScene.Name);
+            var roundManager = RoundManager.Instance;
+            roundManager.EndRound();
+
+            if (roundManager.CurrentRoundNumber > roundManager.MaxRounds)
+            {
+                EventManager.OnEndMatch.Invoke();
+            }
+            else
+            {
+                EventManager.OnStartRound.Invoke(roundManager.CurrentRoundNumber);
+                LoadNextGameLoopScene(roundManager.CurrentRoundNumber);
+            }
+        }
+
+        private void LoadNextGameLoopScene(int roundNumber)
+        {
+            int nextSceneIndex = (roundNumber - 1) % gameLoopScenes.Count;
+            SceneManager.LoadScene(gameLoopScenes[nextSceneIndex].Name);
+        }
+
+        private void HandleEndMatch()
+        {
+            SceneManager.LoadScene(endGameScene.Name);
         }
     }
 }
