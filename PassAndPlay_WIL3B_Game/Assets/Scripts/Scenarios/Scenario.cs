@@ -1,5 +1,6 @@
 namespace WilGame.Scenarios
 {
+    [System.Serializable]
     public struct Scenario
     {
         public int Id;
