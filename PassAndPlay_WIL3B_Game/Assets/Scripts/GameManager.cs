@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityUtils;
 using Eflatun.SceneReference;
+using WilGame.Players;
 
 namespace WilGame
 {
