@@ -65,5 +65,38 @@ namespace WilGame.Players
 		{
 			return Players.Find(x => x.Id == playerId);
 		}
+		
+		public void RecordAnswer(int playerId, string answer)
+		{
+			var playerIndex = Players.FindIndex(p => p.Id == playerId);
+			if (playerIndex != -1)
+			{
+				var player = Players[playerIndex];
+				player.Answer = answer;
+				player.Status = PlayerStatus.Finished;
+				Players[playerIndex] = player;
+			}
+		}
+
+		public bool AllPlayersAnswered()
+		{
+			return Players.TrueForAll(player => player.Status == PlayerStatus.Finished);
+		}
+
+		public void NextPlayer()
+		{
+			_currentPlayerId = (_currentPlayerId + 1) % PlayerCount;
+		}
+
+		public void ResetStatuses()
+		{
+			for (int i = 0; i < Players.Count; i++)
+			{
+				var player = Players[i];
+				player.Status = PlayerStatus.Waiting;
+				player.Answer = "";
+				Players[i] = player;
+			}
+		}
 	}
 }

@@ -8,6 +8,7 @@ namespace WilGame.Rounds
     {
         [SerializeField] private int maxRounds = 10;
         public int CurrentRoundNumber { get; private set; } = 0;
+        public int MaxRounds => maxRounds;
         
         /// <summary>
         /// Checks if the end of the game has been reached before the next round starts
@@ -20,6 +21,12 @@ namespace WilGame.Rounds
                 CurrentRoundNumber = maxRounds;
                 EventManager.OnEndMatch.Invoke();
             }
+            
+            
+        }
+        public void ResetRounds()
+        {
+            CurrentRoundNumber = 0;
         }
     }
 }
