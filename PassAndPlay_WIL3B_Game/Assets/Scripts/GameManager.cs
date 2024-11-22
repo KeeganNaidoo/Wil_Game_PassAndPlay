@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityUtils;
@@ -34,10 +35,20 @@ namespace WilGame
             EventManager.OnStartMatch.Unsubscribe(OnStartGame);
         }
 
-        private void OnStartGame()
+        private async void OnStartGame()
         {
+            await LoadSceneAsync(lobbyScene.Name);
             EventManager.OnStartRound.Invoke(1); // Start first round
-            SceneManager.LoadScene(gameLoopScenes[0].Name);
+        }
+
+        private async Task LoadSceneAsync(string sceneName)
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+        
+            while (!asyncLoad.isDone)
+            {
+                await Task.Yield();
+            }
         }
         
         private void HandleFinishRound()
@@ -65,6 +76,11 @@ namespace WilGame
         private void HandleEndMatch()
         {
             SceneManager.LoadScene(endGameScene.Name);
+        }
+
+        public void StartMatch()
+        {
+            OnStartGame();
         }
     }
 }
