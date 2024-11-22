@@ -37,7 +37,7 @@ namespace WilGame
         {
             var currentPlayer = playerManager.GetCurrentPlayer();
             playerTurnText.text = $"{currentPlayer.Name}'s Turn";
-            playerAvatar.sprite = currentPlayer.Avatar;
+            //playerAvatar.sprite = currentPlayer.Avatar;
         }
 
         public void SubmitAnswer()

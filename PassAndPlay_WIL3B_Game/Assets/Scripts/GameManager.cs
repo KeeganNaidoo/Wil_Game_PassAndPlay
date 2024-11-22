@@ -37,7 +37,7 @@ namespace WilGame
 
         private async void OnStartGame()
         {
-            await LoadSceneAsync(lobbyScene.Name);
+            await LoadSceneAsync(gameLoopScenes[0].Name);
             EventManager.OnStartRound.Invoke(1); // Start first round
         }
 
