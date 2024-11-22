@@ -13,14 +13,14 @@ namespace WilGame.Players
 		public int TurnOrder;
 		public PlayerStatus Status;
 		
-		public PlayerData(int id, string name, Sprite avatar, int turnOrder)
+		public PlayerData(string name, Sprite avatar)
 		{
-			Id = id;
+			Id = 0;
 			Name = name;
 			Avatar = avatar;
 			Score = 0;
 			Answer = "";
-			TurnOrder = turnOrder;
+			TurnOrder = Id;
 			Status = PlayerStatus.Waiting;
 		}
 	}

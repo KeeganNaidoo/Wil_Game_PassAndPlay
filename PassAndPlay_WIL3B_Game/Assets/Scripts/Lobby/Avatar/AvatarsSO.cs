@@ -21,5 +21,10 @@ namespace WilGame
 				avatar.IsUsed = false;
 			}
 		}
+
+		public Avatar GetAvatar(Sprite sprite)
+		{
+			return avatars.Find(x => x.Sprite == sprite);
+		}
 	}
 }

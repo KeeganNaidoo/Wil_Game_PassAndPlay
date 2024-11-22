@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace WilGame
 {
-	
+	[System.Serializable]
 	public class Avatar
 	{
 		public int Index;
