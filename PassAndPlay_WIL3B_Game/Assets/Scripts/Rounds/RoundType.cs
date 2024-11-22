@@ -1,9 +1,14 @@
 namespace WilGame.Rounds
 {
-    public enum RoundType
+    public class RoundType
     {
-        Comment,
-        Hashtag,
-        Spin
+        public string Name { get; }
+
+        public RoundType(string name)
+        {
+            Name = name;
+        }
+        public int AnswerCharacterLimit { get; set; }
+        
     }
 }
