@@ -13,7 +13,6 @@ namespace WilGame
 		private List<AvatarSelectionItem> _avatarSelectionItems;
 		[SerializeField] private AvatarsSO avatars;
 		private int _selectedAvatarIndex = -1;
-		private int _targetRemovalPlayerIndex = -1;
 
 		private void Awake()
 		{
