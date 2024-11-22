@@ -17,6 +17,7 @@ public static class EventManager
     public static Event OnFinishTurn { get; } = new ();
     public static Event OnStartTurn { get; } = new ();
     public static Event OnAllPlayersTurnFinished { get; } = new ();
+    public static Event OnSubmitButtonPressed { get; } = new ();
     
     public static Event OnFinishRound { get; } = new ();
     public static Event<int> OnStartRound { get; } = new (); // int: Round number

@@ -33,6 +33,13 @@ namespace WilGame
             EventManager.OnFinishRound.Unsubscribe(HandleFinishRound);
             EventManager.OnEndMatch.Unsubscribe(HandleEndMatch);
             EventManager.OnStartMatch.Unsubscribe(OnStartGame);
+            EventManager.OnFinishTurn.Subscribe(ReloadSceneForNextTurn);
+        }
+
+        private async void ReloadSceneForNextTurn()
+        {
+            await LoadSceneAsync(SceneManager.GetActiveScene().name);
+            EventManager.OnStartTurn.Invoke();
         }
 
         private async void OnStartGame()
