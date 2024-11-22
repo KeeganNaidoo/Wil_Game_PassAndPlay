@@ -7,7 +7,5 @@ namespace WilGame
 	public class SpinInputField : AnswerInputField
 	{
 		
-		
-		
 	}
 }
