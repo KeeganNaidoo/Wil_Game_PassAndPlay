@@ -27,6 +27,11 @@ namespace WilGame.Players.Player_Indicators
             }
         }
 
+        private void OnDestroy()
+        {
+            EventManager.OnStartTurn.Unsubscribe(StartTurn);
+        }
+
         private void StartTurn()
         {
             currentPlayingPlayerIndex++;

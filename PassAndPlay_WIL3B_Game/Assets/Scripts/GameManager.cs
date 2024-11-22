@@ -26,6 +26,7 @@ namespace WilGame
             EventManager.OnFinishRound.Subscribe(HandleFinishRound);
             EventManager.OnEndMatch.Subscribe(HandleEndMatch);
             EventManager.OnStartMatch.Subscribe(OnStartGame);
+            EventManager.OnFinishTurn.Subscribe(ReloadSceneForNextTurn);
         }
 
         private void OnDisable()
@@ -33,7 +34,7 @@ namespace WilGame
             EventManager.OnFinishRound.Unsubscribe(HandleFinishRound);
             EventManager.OnEndMatch.Unsubscribe(HandleEndMatch);
             EventManager.OnStartMatch.Unsubscribe(OnStartGame);
-            EventManager.OnFinishTurn.Subscribe(ReloadSceneForNextTurn);
+            EventManager.OnFinishTurn.Unsubscribe(ReloadSceneForNextTurn);
         }
 
         private async void ReloadSceneForNextTurn()

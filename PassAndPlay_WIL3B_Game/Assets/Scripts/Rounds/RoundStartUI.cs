@@ -18,7 +18,6 @@ namespace WilGame
         
         [SerializeField] private TextMeshProUGUI scenarioDescriptionText; // Scenario Description
         [SerializeField] private TextMeshProUGUI pointsText; // Points for the scenario
-        [SerializeField] private string nextSceneName = "AnswersScene"; // Scene to load on button press
         [SerializeField] private Button continueButton;
 
         private RoundManager roundManager;
@@ -47,7 +46,7 @@ namespace WilGame
         private void DisplayRoundDetails()
         {
             // Fetch round details
-            roundNumberText.text = $"Round {roundManager.CurrentRoundNumber + 1}";
+            roundNumberText.text = $"Round {roundManager.CurrentRoundNumber}";
             roundTypeText.text = $"Round Type: {roundManager.CurrentRoundType ?? roundManager.PickRandomRoundType()}";
 
             // Fetch scenario details
