@@ -10,8 +10,6 @@ namespace WilGame
 {
     public class AnswerSceneManager : MonoBehaviour
     {
-        public TMP_Text playerTurnText;
-        public Image playerAvatar;
         public TMP_InputField answerInputField;
         public Button submitButton;
 
@@ -36,7 +34,6 @@ namespace WilGame
         private void HandleStartTurn()
         {
             var currentPlayer = playerManager.GetCurrentPlayer();
-            playerTurnText.text = $"{currentPlayer.Name}'s Turn";
             //playerAvatar.sprite = currentPlayer.Avatar;
         }
 

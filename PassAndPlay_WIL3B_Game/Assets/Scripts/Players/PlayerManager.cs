@@ -10,7 +10,8 @@ namespace WilGame.Players
 	
 	public class PlayerManager : PersistentSingleton<PlayerManager>
 	{
-		[HideInInspector] public List<PlayerData> Players { get; private set; } = new List<PlayerData>();
+		[field: SerializeField, Tooltip("Assign Players in inspector for debug")] 
+		public List<PlayerData> Players { get; private set; } = new List<PlayerData>();
 
 		public int PlayerCount => Players.Count;
 		private int _currentPlayerId = 0; // The player who's turn it is
