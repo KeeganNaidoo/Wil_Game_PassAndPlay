@@ -4,14 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using WilGame.Players;
+using TMPro;
 
 namespace WilGame
 {
     public class AnswerSceneManager : MonoBehaviour
     {
-        public Text playerTurnText;
+        public TMP_Text playerTurnText;
         public Image playerAvatar;
-        public InputField answerInputField;
+        public TMP_InputField answerInputField;
         public Button submitButton;
 
         private PlayerManager playerManager;
