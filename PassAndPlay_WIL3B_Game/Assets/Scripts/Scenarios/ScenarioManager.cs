@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityUtils;
 using Random = System.Random;
 
+
 namespace WilGame.Scenarios
 {
     public class ScenarioManager : PersistentSingleton<ScenarioManager>
     {
+
         [SerializeField] private ScenariosSO scenarios;
         public Scenario CurrentScenario { get; private set; }
         
@@ -33,6 +35,32 @@ namespace WilGame.Scenarios
             CurrentScenario = scenarios.GetScenarioById(id);
             return CurrentScenario;
         }
+
+        private Scenario currentScenario;
+        private string currentPrompt;
+
+        public void SetCurrentScenario(Scenario scenario, string prompt)
+        {
+            currentScenario = scenario;
+            currentPrompt = prompt;
+        }
+
+        public Scenario GetCurrentScenario()
+        {
+            return currentScenario;
+        }
+
+        public string GetCurrentPrompt()
+        {
+            return currentPrompt;
+        }
+
+        public string GetCurrentScenarioTitle()
+        {
+            return currentScenario.Text; // Example method for additional fields
+        }
+
+
         
     }
 }

@@ -33,7 +33,7 @@ namespace WilGame.Rounds
             CurrentRoundNumber = 0;
         }
         
-        private string PickRandomRoundType()
+        public string PickRandomRoundType()
         {
             CurrentRoundType = _roundTypes[Random.Range(0, _roundTypes.Count)];
             return CurrentRoundType;

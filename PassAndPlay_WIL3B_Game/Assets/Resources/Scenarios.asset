@@ -12,3 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0346890a71a4051bc6990a003334057, type: 3}
   m_Name: Scenarios
   m_EditorClassIdentifier: 
+  <ScenariosList>k__BackingField:
+  - Id: 0
+    Text: 'Politician gas showers people that have stds '
+    Score: 100
+  - Id: 1
+    Text: "Politician abolishes any words containing \u201Cman\u201D as it is not
+      politically correct"
+    Score: 100
+  - Id: 2
+    Text: "Politician refuses to give his electoral speech as he didn\u2019t not
+      want to address the woman "
+    Score: 100
+  - Id: 3
+    Text: "Politician starts campaign \u201Cvaccines for vaccines\u201D because \u201Cthe
+      new vaccines will undo mental disabilities caused by the first set\u201D"
+    Score: 100
+  - Id: 4
+    Text: 'Politician states if they lose to the other candidate is because the country
+      is full of a bunch of twink snowflakes '
+    Score: 100
+  - Id: 5
+    Text: 'Politician refuses funding for dog shelters because he is allergic and
+      thinks they should die '
+    Score: 100
+  - Id: 6
+    Text: Politician says that suicide prevention is unnecessary
+    Score: 100
+  - Id: 7
+    Text: Chistian Politician wears burqa in his address to ban Islamic apparel
+    Score: 100
+  - Id: 8
+    Text: "Politician states he has \u201C every center fold from playgirl \u201D
+      in attempt to show his advocation for gender diversity"
+    Score: 100
+  - Id: 9
+    Text: Politician creates a new handshake which includes groping asses
+    Score: 100
