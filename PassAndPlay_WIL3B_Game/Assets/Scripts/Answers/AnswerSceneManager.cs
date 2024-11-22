@@ -22,7 +22,7 @@ namespace WilGame
         {
             playerManager = PlayerManager.Instance;
             EventManager.OnStartTurn.Subscribe(HandleStartTurn);
-            EventManager.OnAllPlayersTurnFinished.Subscribe(TransitionToVoting);
+            submitButton.onClick.AddListener(SubmitAnswer);
 
             HandleStartTurn();
         }
@@ -30,7 +30,7 @@ namespace WilGame
         private void OnDestroy()
         {
             EventManager.OnStartTurn.Unsubscribe(HandleStartTurn);
-            EventManager.OnAllPlayersTurnFinished.Unsubscribe(TransitionToVoting);
+            submitButton.onClick.RemoveListener(SubmitAnswer);
         }
 
         private void HandleStartTurn()
@@ -47,26 +47,20 @@ namespace WilGame
             {
                 var currentPlayer = playerManager.GetCurrentPlayer();
                 playerManager.RecordAnswer(currentPlayer.Id, answer);
-                answerInputField.text = ""; // Clear input field
 
-                EventManager.OnFinishTurn.Invoke();
+                EventManager.OnSubmitButtonPressed.Invoke();
 
-                if (playerManager.AllPlayersAnswered())
-                {
-                    EventManager.OnAllPlayersTurnFinished.Invoke();
-                }
-                else
-                {
-                    playerManager.NextPlayer();
-                    HandleStartTurn();
-                }
+                // Commented out incase needed
+                // if (playerManager.AllPlayersAnswered())
+                // {
+                //     EventManager.OnAllPlayersTurnFinished.Invoke();
+                // }
+                // else
+                // {
+                //     playerManager.NextPlayer();
+                //     HandleStartTurn();
+                // }
             }
-        }
-
-        private void TransitionToVoting()
-        {
-            Debug.Log("All players have answered. Transitioning to Voting Scene...");
-            SceneManager.LoadScene("VotingScene");
         }
     }
 }
