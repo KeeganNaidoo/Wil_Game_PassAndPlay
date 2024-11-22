@@ -24,7 +24,8 @@ public static class EventManager
     public static Event OnStartMatch { get; } = new ();
 
     public static Event<int> OnRemovePlayer { get; } = new(); // int: player id
+    public static Event<Sprite> OnSendTargetRemovePlayerAvatarBeforeRemoving { get; } = new();
     public static Event OnAddPlayer { get; } = new();
-    public static Event<PlayerData> OnCreatePlayer { get; } = new();
+    public static Event<PlayerData> OnPlayerCreated { get; } = new(); // Player data sent for display in the lobby list
     public static Event<int> OnAvatarSelected { get; } = new(); // int: avatar index
 }

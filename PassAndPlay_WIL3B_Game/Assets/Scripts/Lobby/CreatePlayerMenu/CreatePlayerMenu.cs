@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -13,17 +14,29 @@ namespace WilGame
 		[SerializeField] private Button createButton;
 		[SerializeField] private Button cancelButton;
 		[SerializeField] private TMP_InputField playerNameInput;
-		private bool _isAvatarSelected = false; // can't create player if no avatar is selected
 		[SerializeField] private int playerNameCharacterLimit = 12;
+		[SerializeField] private AvatarsSO avatars;
+		private int _selectedAvatarIndex = -1; // For tracking selected avatar for when the create button is pressed
+		private bool _isAvatarSelected = false;
+		private bool _isNameValid = false;
 		
 		private void Start()
 		{
-			EventManager.OnAvatarSelected.Subscribe(TrackSelectedAvatar);
+			EventManager.OnAvatarSelected.Subscribe(OnAvatarSelected);
 			EventManager.OnAddPlayer.Subscribe(ShowCreatePlayerMenu);
 			createButton.onClick.AddListener(CreatePlayer);
 			cancelButton.onClick.AddListener(() =>gameObject.SetActive(false));
 			playerNameInput.characterLimit = playerNameCharacterLimit;
+			playerNameInput.onValueChanged.AddListener(CheckForValidNameForCreateButton);
 			gameObject.SetActive(false);
+
+			createButton.interactable = false;
+		}
+
+		private void CheckForValidNameForCreateButton(string arg0)
+		{
+			_isNameValid = arg0 != string.Empty;
+			SetButtonInteractableness();
 		}
 
 		private void ShowCreatePlayerMenu()
@@ -32,25 +45,39 @@ namespace WilGame
 			playerNameInput.text = "";
 		}
 
-		private void TrackSelectedAvatar(int index)
+		private void OnAvatarSelected(int index)
 		{
+			// Set create button as interactable if an avatar is selected
 			_isAvatarSelected = index != -1;
+			SetButtonInteractableness();
+			
+			// Track selected avatar
+			_selectedAvatarIndex = index;
 		}
 
 		private void CreatePlayer()
 		{
-			if (_isAvatarSelected == false) return;
-			if (playerNameInput.text == "") return;
-			EventManager.OnCreatePlayer.Invoke(new PlayerData(playerNameInput.text));
-			gameObject.SetActive(false);
+			PlayerManager.Instance.CreateStoreAndBroadcastNewPlayer(playerNameInput.text, avatars.GetAvatar(_selectedAvatarIndex).Sprite);
+			CloseMenuWindow();
 		}
 
 		private void OnDestroy()
 		{
-			EventManager.OnAvatarSelected.Unsubscribe(TrackSelectedAvatar);
+			EventManager.OnAvatarSelected.Unsubscribe(OnAvatarSelected);
 			EventManager.OnAddPlayer.Unsubscribe(ShowCreatePlayerMenu);
 			createButton.onClick.RemoveListener(CreatePlayer);
 			cancelButton.onClick.RemoveListener(() => gameObject.SetActive(false));
+			playerNameInput.onValueChanged.RemoveListener(CheckForValidNameForCreateButton);
+		}
+
+		private void SetButtonInteractableness()
+		{
+			createButton.interactable = _isAvatarSelected && _isNameValid;
+		}
+
+		private void CloseMenuWindow()
+		{
+			gameObject.SetActive(false);
 		}
 		
 	}

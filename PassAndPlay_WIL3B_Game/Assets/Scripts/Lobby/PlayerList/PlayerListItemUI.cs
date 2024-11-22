@@ -36,7 +36,13 @@ namespace WilGame
 		private void RemovePlayer()
 		{
 			EventManager.OnRemovePlayer.Invoke(_playerId);
-			Destroy(gameObject);
+			// The list group destroys this object
+		}
+
+		public void DecrementTurnOrderNumberAndId()
+		{
+			playerNumberText.text = (int.Parse(playerNumberText.text) - 1).ToString();
+			_playerId--;
 		}
 	}
 }

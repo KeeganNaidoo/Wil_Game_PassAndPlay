@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using WilGame.Players;
 using System.Threading.Tasks;
+using UnityEngine.Serialization;
 
 namespace WilGame
 {
@@ -11,35 +13,53 @@ namespace WilGame
 	{
 		[SerializeField] private int maxPlayers = 8;
 		[SerializeField] private PlayerListItemUI playerListItemPrefab;
-		private List<PlayerListItemUI> playerListUI = new();
-		[SerializeField] private AddPlayerUI addPlayerUI;
+		private List<PlayerListItemUI> _playerListUI = new();
+		[FormerlySerializedAs("addPlayerUI")] [SerializeField] private AddPlayerUI addPlayerUIPrefab;
+		private AddPlayerUI _addPlayerUI;
 
-		private void OnEnable()
+		private void Start()
 		{
-			EventManager.OnCreatePlayer.Subscribe(ListNewPlayer);
+			EventManager.OnPlayerCreated.Subscribe(ListNewPlayer);
+			EventManager.OnRemovePlayer.Subscribe(UpdatePlayerListItemsAndRemovePlayer);
+			CreateAddPlayerUI();
 		}
 
-		private async void ListNewPlayer(PlayerData player)
+		private void UpdatePlayerListItemsAndRemovePlayer(int playerIndex)
 		{
-			await Task.Yield(); // wait so that other scripts have finished creating the player before assigning the values for the player.
+			for (int i = playerIndex + 1; i < _playerListUI.Count; i++)
+			{
+				_playerListUI[i].DecrementTurnOrderNumberAndId();
+			}
+			Debug.Log("Remove player index: " + playerIndex);
+			Destroy(_playerListUI[playerIndex].gameObject);
+			_playerListUI.RemoveAt(playerIndex);
+		}
+
+		private void OnDestroy()
+		{
+			EventManager.OnPlayerCreated.Unsubscribe(ListNewPlayer);
+		}
+
+		private void ListNewPlayer(PlayerData player)
+		{
 			RemoveAddPlayerUI();
 			var playerListItem = Instantiate(playerListItemPrefab, transform);
 			playerListItem.Init(player);
-			playerListUI.Add(playerListItem);
-			if (playerListUI.Count < maxPlayers)
+			_playerListUI.Add(playerListItem);
+			if (_playerListUI.Count < maxPlayers)
 			{
-				ShowAddPlayerUI();
+				CreateAddPlayerUI();
 			}
 		}
 
 		private void RemoveAddPlayerUI()
 		{
-			addPlayerUI.gameObject.SetActive(false);
+			Destroy(_addPlayerUI.gameObject);
 		}
 
-		private void ShowAddPlayerUI()
+		private void CreateAddPlayerUI()
 		{
-			addPlayerUI.gameObject.SetActive(true);
+			_addPlayerUI = Instantiate(addPlayerUIPrefab, transform);
 		}
 	}
 }
