@@ -18,7 +18,7 @@ namespace WilGame
         
         [SerializeField] private TextMeshProUGUI scenarioDescriptionText; // Scenario Description
         [SerializeField] private TextMeshProUGUI pointsText; // Points for the scenario
-        [SerializeField] private string nextSceneName = "AnswersScene"; // Scene to load on button press
+        //[SerializeField] private string nextSceneName = "AnswersScene"; // Scene to load on button press
         [SerializeField] private Button continueButton;
 
         private RoundManager roundManager;
