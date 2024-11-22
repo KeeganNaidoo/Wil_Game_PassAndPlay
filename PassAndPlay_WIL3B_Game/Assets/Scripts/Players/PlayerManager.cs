@@ -19,10 +19,14 @@ namespace WilGame.Players
 		private void OnEnable()
 		{
 			EventManager.OnRemovePlayer.Subscribe(RemovePlayer);
+			EventManager.OnStartTurn.Subscribe(NextPlayer);
+			EventManager.OnAllPlayersTurnFinished.Subscribe(() => _currentPlayerId = 0);
 		}
 		private void OnDisable()
 		{
 			EventManager.OnRemovePlayer.Unsubscribe(RemovePlayer);
+			EventManager.OnStartTurn.Unsubscribe(NextPlayer);
+			EventManager.OnAllPlayersTurnFinished.Unsubscribe(() => _currentPlayerId = 0);
 		}
 
 		public void CreateStoreAndBroadcastNewPlayer(string name, Sprite avatar)
